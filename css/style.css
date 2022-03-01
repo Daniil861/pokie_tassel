@@ -742,6 +742,9 @@ body._loaded {
     margin: 1.25rem auto 1.875rem;
   }
 }
+.picture__item._lock {
+  pointer-events: none;
+}
 .picture__image {
   position: relative;
   background: radial-gradient(48.15% 45.02% at 50% 50%, #ffffff 0%, #dddddd 100%);
@@ -818,6 +821,9 @@ body._loaded {
 .picture__button._lock {
   pointer-events: none;
   opacity: 0.2;
+}
+.picture__button._lock-all {
+  pointer-events: none;
 }
 
 .picture-one__button_red {
