@@ -801,7 +801,6 @@ body._loaded {
 .picture__controls {
   display: flex;
   justify-content: center;
-  gap: 1.25rem;
 }
 .picture__button {
   width: 54px;
@@ -814,6 +813,7 @@ body._loaded {
   line-height: 1.1875rem;
   color: #ffffff;
   border: 1px solid #ffffff;
+  margin: 0 0.625rem;
 }
 .picture__button._lock {
   pointer-events: none;
