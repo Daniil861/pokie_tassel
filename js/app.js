@@ -424,25 +424,15 @@
         if (document.querySelector(".picture-three")) points.innerHTML = sessionStorage.getItem("points");
     }
     if (sessionStorage.getItem("count")) {
-        if (document.querySelector(".main")) {
-            main_count.innerHTML = sessionStorage.getItem("count");
-            if (sessionStorage.getItem("count") < 1) {
-                console.log("count равно нулю");
-                document.querySelector(".circle__count").classList.add("_hide");
-            }
-        }
-        if (document.querySelector(".picture-one")) {
-            main_count.innerHTML = sessionStorage.getItem("count");
-            if (sessionStorage.getItem("count") < 1) document.querySelector(".circle__count").classList.add("_hide");
-        }
-        if (document.querySelector(".picture-two")) {
-            main_count.innerHTML = sessionStorage.getItem("count");
-            if (sessionStorage.getItem("count") < 1) document.querySelector(".circle__count").classList.add("_hide");
-        }
-        if (document.querySelector(".picture-three")) {
-            main_count.innerHTML = sessionStorage.getItem("count");
-            if (sessionStorage.getItem("count") < 1) document.querySelector(".circle__count").classList.add("_hide");
-        }
+        if (document.querySelector(".main")) main_count.innerHTML = sessionStorage.getItem("count");
+        if (document.querySelector(".picture-one")) main_count.innerHTML = sessionStorage.getItem("count");
+        if (document.querySelector(".picture-two")) main_count.innerHTML = sessionStorage.getItem("count");
+        if (document.querySelector(".picture-three")) main_count.innerHTML = sessionStorage.getItem("count");
+    }
+    if (document.querySelector(".main")) {
+        if (sessionStorage.getItem("complete-1-all")) document.querySelector(".main__item_one").classList.add("_active-one");
+        if (sessionStorage.getItem("complete-2-all")) document.querySelector(".main__item_two").classList.add("_active-two");
+        if (sessionStorage.getItem("complete-3-all")) document.querySelector(".main__item_three").classList.add("_active-three");
     }
     let timeArray = [];
     function getUniqeNum(min, max) {
@@ -502,7 +492,6 @@
                             document.querySelector(".play").classList.add("_active");
                         }), 2e3);
                     }
-                    if (a_after < 1) document.querySelector(".circle__count").classList.add("_hide");
                 }
             } else if (document.querySelector(".picture-two")) {
                 if (a > 0) {
@@ -526,7 +515,6 @@
                             document.querySelector(".play").classList.add("_active");
                         }), 2e3);
                     }
-                    if (a_after < 1) document.querySelector(".circle__count").classList.add("_hide");
                 }
             } else if (document.querySelector(".picture-three")) if (a > 0) {
                 let a_after = a - 1;
@@ -549,7 +537,6 @@
                         document.querySelector(".play").classList.add("_active");
                     }), 2e3);
                 }
-                if (a_after < 1) document.querySelector(".circle__count").classList.add("_hide");
             }
         }
         if (targetElement.closest(".main__item_one")) {
@@ -576,12 +563,40 @@
                 location.href = "bonus.html";
             }), 500);
         }
+        if (targetElement.closest(".circle_lobby")) {
+            sessionStorage.setItem("complete-1", 0);
+            sessionStorage.setItem("complete-2", 0);
+            sessionStorage.setItem("complete-3", 0);
+        }
         if (targetElement.closest(".picture-slot_one") || targetElement.closest(".picture-one__button_red")) {
             timeArray.push(0);
             document.querySelectorAll(".picture-slot_one").forEach((el => {
                 el.classList.add("_active");
             }));
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-one__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-one__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
             document.querySelector(".picture-one__button_red").classList.add("_lock");
+            let a = +sessionStorage.getItem("complete-1");
+            if (a < 5) {
+                sessionStorage.setItem("complete-1", a + 1);
+                if (+sessionStorage.getItem("complete-1") >= 4) sessionStorage.setItem("complete-1-all", true);
+            }
             if (4 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -592,6 +607,29 @@
             timeArray.push(1);
             document.querySelector(".picture-slot_two").classList.add("_active");
             document.querySelector(".picture-one__button_yellow").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-one__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-one__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-1");
+            if (a < 5) {
+                sessionStorage.setItem("complete-1", a + 1);
+                if (+sessionStorage.getItem("complete-1") >= 4) sessionStorage.setItem("complete-1-all", true);
+            }
             if (4 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -602,6 +640,29 @@
             timeArray.push(2);
             document.querySelector(".picture-slot_three").classList.add("_active");
             document.querySelector(".picture-one__button_blue").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-one__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-one__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-1");
+            if (a < 5) {
+                sessionStorage.setItem("complete-1", a + 1);
+                if (+sessionStorage.getItem("complete-1") >= 4) sessionStorage.setItem("complete-1-all", true);
+            }
             if (4 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -614,6 +675,29 @@
                 el.classList.add("_active");
             }));
             document.querySelector(".picture-one__button_corral").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-one__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-one__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-1");
+            if (a < 5) {
+                sessionStorage.setItem("complete-1", a + 1);
+                if (+sessionStorage.getItem("complete-1") >= 4) sessionStorage.setItem("complete-1-all", true);
+            }
             if (4 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -625,6 +709,29 @@
             timeArray.push(0);
             document.querySelector(".picture-slot_seven").classList.add("_active");
             document.querySelector(".picture-two__button_one").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-two__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-two__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-2");
+            if (a < 4) {
+                sessionStorage.setItem("complete-2", a + 1);
+                if (+sessionStorage.getItem("complete-2") >= 3) sessionStorage.setItem("complete-2-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -635,6 +742,29 @@
             timeArray.push(1);
             document.querySelector(".picture-slot_watermelon").classList.add("_active");
             document.querySelector(".picture-two__button_two").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-two__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-two__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-2");
+            if (a < 4) {
+                sessionStorage.setItem("complete-2", a + 1);
+                if (+sessionStorage.getItem("complete-2") >= 3) sessionStorage.setItem("complete-2-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -645,6 +775,29 @@
             timeArray.push(2);
             document.querySelector(".picture-slot_cherry").classList.add("_active");
             document.querySelector(".picture-two__button_three").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-two__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-two__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-2");
+            if (a < 4) {
+                sessionStorage.setItem("complete-2", a + 1);
+                if (+sessionStorage.getItem("complete-2") >= 3) sessionStorage.setItem("complete-2-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -656,6 +809,29 @@
             timeArray.push(0);
             document.querySelector(".picture-slot_sky").classList.add("_active");
             document.querySelector(".picture-three__button_one").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-three__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-three__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-3");
+            if (a < 4) {
+                sessionStorage.setItem("complete-3", a + 1);
+                if (+sessionStorage.getItem("complete-3") >= 3) sessionStorage.setItem("complete-3-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -666,6 +842,29 @@
             timeArray.push(1);
             document.querySelector(".picture-slot_roulet").classList.add("_active");
             document.querySelector(".picture-three__button_two").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-three__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-three__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-3");
+            if (a < 4) {
+                sessionStorage.setItem("complete-3", a + 1);
+                if (+sessionStorage.getItem("complete-3") >= 3) sessionStorage.setItem("complete-3-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -676,6 +875,29 @@
             timeArray.push(2);
             document.querySelector(".picture-slot_slot").classList.add("_active");
             document.querySelector(".picture-three__button_three").classList.add("_lock");
+            document.querySelectorAll(".picture__button").forEach((el => {
+                el.classList.add("_lock-all");
+            }));
+            document.querySelector(".picture-three__item").classList.add("_lock");
+            setTimeout((() => {
+                document.querySelector(".picture-three__item").classList.remove("_lock");
+                document.querySelectorAll(".picture__button").forEach((el => {
+                    el.classList.remove("_lock-all");
+                }));
+            }), 1300);
+            points.innerHTML = +points.innerHTML + 20;
+            points.classList.add("_anim");
+            cristall.classList.add("_anim");
+            setTimeout((() => {
+                points.classList.remove("_anim");
+                cristall.classList.remove("_anim");
+            }), 1500);
+            sessionStorage.setItem("points", +points.innerHTML);
+            let a = +sessionStorage.getItem("complete-3");
+            if (a < 4) {
+                sessionStorage.setItem("complete-3", a + 1);
+                if (+sessionStorage.getItem("complete-3") >= 3) sessionStorage.setItem("complete-3-all", true);
+            }
             if (3 == timeArray.length) {
                 document.querySelector(".circle_zoom").classList.add("_lock");
                 setTimeout((() => {
@@ -700,7 +922,7 @@
             onComplete: function(active) {
                 a = this.active;
                 if (666 != a && 666 != b && 666 != c) if (a == b && b == c) {
-                    points.innerHTML = +points.innerHTML + 100;
+                    points.innerHTML = +points.innerHTML + 500;
                     points.classList.add("_anim");
                     cristall.classList.add("_anim");
                     setTimeout((() => {
@@ -717,7 +939,7 @@
             onComplete: function(active) {
                 b = this.active;
                 if (666 != a && 666 != b && 666 != c) if (a == b && b == c) {
-                    points.innerHTML = +points.innerHTML + 100;
+                    points.innerHTML = +points.innerHTML + 500;
                     points.classList.add("_anim");
                     cristall.classList.add("_anim");
                     setTimeout((() => {
@@ -734,7 +956,7 @@
             onComplete: function(active) {
                 c = this.active;
                 if (666 != a && 666 != b && 666 != c) if (a == b && b == c) {
-                    points.innerHTML = +points.innerHTML + 50;
+                    points.innerHTML = +points.innerHTML + 500;
                     points.classList.add("_anim");
                     cristall.classList.add("_anim");
                     setTimeout((() => {
