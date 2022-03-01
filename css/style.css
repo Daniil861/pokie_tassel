@@ -855,9 +855,11 @@ body._loaded {
 
 .picture-slot_one, .picture-slot_two, .picture-slot_three, .picture-slot_four, .picture-slot_seven, .picture-slot_watermelon, .picture-slot_cherry, .picture-slot_sky, .picture-slot_roulet, .picture-slot_slot {
   filter: grayscale(1);
+  mix-blend-mode: luminosity;
 }
 .picture-slot_one._active, .picture-slot_two._active, .picture-slot_three._active, .picture-slot_four._active, .picture-slot_seven._active, .picture-slot_watermelon._active, .picture-slot_cherry._active, .picture-slot_sky._active, .picture-slot_roulet._active, .picture-slot_slot._active {
   filter: grayscale(0);
+  mix-blend-mode: normal;
   transition: all 2.5s ease 0s;
 }
 
